@@ -14,11 +14,13 @@ list(APPEND includePaths "${CMAKE_SOURCE_DIR}/inc")
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS SerialPort)
 
 add_executable(${targetName}
   ${CMAKE_SOURCE_DIR}/src/main.cpp
 )
-target_link_libraries(${targetName} Qt${QT_VERSION_MAJOR}::Core)
+target_link_libraries(${targetName} PRIVATE Qt${QT_VERSION_MAJOR}::Core)
+target_link_libraries(${targetName} PRIVATE Qt${QT_VERSION_MAJOR}::SerialPort)
 target_include_directories(${targetName} PRIVATE ${includePaths})
 
 include(GNUInstallDirs)
