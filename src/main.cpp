@@ -4,6 +4,8 @@
 #include <QSerialPortInfo>
 #include <QList>
 
+static bool isUSBToSerialConverter(QSerialPortInfo &portInfo);
+
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
@@ -12,6 +14,9 @@ int main(int argc, char *argv[])
 
     for (QSerialPortInfo &portInfo: portInfoList)
     {
+        if (!isUSBToSerialConverter(portInfo))
+            continue;
+
         qDebug() << "portName: " << portInfo.portName() << "\n"
                  << "systemLocation: " << portInfo.systemLocation() << "\n"
                  << "description: " << portInfo.description() << "\n"
@@ -28,4 +33,13 @@ int main(int argc, char *argv[])
     }
 
     return 0;
+}
+
+static bool isUSBToSerialConverter(QSerialPortInfo &portInfo)
+{
+    QString portDescription = portInfo.description();
+
+    return ((portDescription.contains("usb", Qt::CaseInsensitive)) ||
+            (portDescription.contains("serial", Qt::CaseInsensitive)) ||
+            (portDescription.contains("CH34", Qt::CaseInsensitive)));
 }
