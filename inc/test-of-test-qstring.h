@@ -16,6 +16,7 @@ private:
 
 private slots:
     void toUpper();
+    void toUpper_data();
 
 signals:
 };

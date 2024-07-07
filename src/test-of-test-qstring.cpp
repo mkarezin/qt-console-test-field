@@ -9,7 +9,18 @@ TestOfTestQString::TestOfTestQString(QObject *parent)
 
 void TestOfTestQString::toUpper()
 {
-    QString str = "hello";
-    QVERIFY(test.toUpper(str) == "HELLO");
-    QCOMPARE(test.toUpper(str), QString("HELLO"));
+    QFETCH(QString, string);
+    QFETCH(QString, result);
+
+    QCOMPARE(test.toUpper(string), result);
+}
+
+void TestOfTestQString::toUpper_data()
+{
+    QTest::addColumn<QString>("string");
+    QTest::addColumn<QString>("result");
+
+    QTest::newRow("all-lower") << "hello" << "HELLO";
+    QTest::newRow("mixed") << "Hello" << "HELLO";
+    QTest::newRow("all-upper") << "HELLO" << "HELLO";
 }
