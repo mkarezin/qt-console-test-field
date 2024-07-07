@@ -18,12 +18,15 @@ list(APPEND sources ${CMAKE_SOURCE_DIR}/src/main.cpp
 list(APPEND testSources ${CMAKE_SOURCE_DIR}/src/test-main.cpp
                         ${CMAKE_SOURCE_DIR}/src/test-of-test-qstring.cpp
                         ${CMAKE_SOURCE_DIR}/inc/test-of-test-qstring.h
-                        ${CMAKE_SOURCE_DIR}/src/test-qstring.cpp)
+                        ${CMAKE_SOURCE_DIR}/src/test-qstring.cpp
+                        ${CMAKE_SOURCE_DIR}/src/test-gui.cpp
+                        ${CMAKE_SOURCE_DIR}/inc/test-gui.h)
 list(APPEND testIncludePaths "${CMAKE_SOURCE_DIR}/inc")
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Test)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 add_executable(${targetName} ${sources})
 target_link_libraries(${targetName} Qt${QT_VERSION_MAJOR}::Core)
@@ -32,6 +35,7 @@ target_include_directories(${targetName} PRIVATE ${includePaths})
 add_executable(${testTargetName} ${testSources})
 target_link_libraries(${testTargetName} Qt${QT_VERSION_MAJOR}::Core)
 target_link_libraries(${testTargetName} Qt${QT_VERSION_MAJOR}::Test)
+target_link_libraries(${testTargetName} Qt${QT_VERSION_MAJOR}::Widgets)
 target_include_directories(${testTargetName} PRIVATE ${testIncludePaths})
 
 include(GNUInstallDirs)
