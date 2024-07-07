@@ -12,6 +12,7 @@ public:
 
 private slots:
     void testGui();
+    void testGui_data();
 
 signals:
 };
